@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click Speed Test</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+    background: #4F1787;
+         
+        }
+        #container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #clickButton {
+            padding: 15px 30px;
+            font-size: 20px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #repeatButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        #status {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <a href="./GAMES.HTML">
+        <button style="position: absolute; top: 3%;left: 2.5%; height: 50px;width: 50px;border:#E85C2F;border-radius: 50px;text-align: center;">back </button>
+    
+        </a>
+    <div id="container">
+        <div id="status">Click the button to start!</div>
+        <button id="clickButton">Click Me!</button>
+        <button id="repeatButton">Repeat</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let clickCount = 0;
+        let timerInterval;
+        let isRunning = false;
+        let isFinished = false;
+        let remainingTime = 10; 
+
+        const button = document.getElementById('clickButton');
+        const repeatButton = document.getElementById('repeatButton');
+        const resultDiv = document.getElementById('result');
+        const statusDiv = document.getElementById('status');
+
+        button.addEventListener('click', () => {
+            if (!isRunning && !isFinished) {
+                startTimer();
+            }
+            if (isRunning) {
+                clickCount++;
+                updateStatus();
+            }
+        });
+
+        repeatButton.addEventListener('click', () => {
+            resetTest();
+        });
+
+        function startTimer() {
+            isRunning = true;
+            isFinished = false;
+            clickCount = 0;
+            remainingTime = 10;
+            statusDiv.textContent = `Time left: ${remainingTime} seconds`;
+            resultDiv.textContent = '';
+
+            timerInterval = setInterval(() => {
+                remainingTime--;
+                updateStatus();
+
+                if (remainingTime <= 0) {
+                    clearInterval(timerInterval);
+                    displayResult();
+                }
+            }, 1000);
+        }
+
+        function updateStatus() {
+            statusDiv.textContent = `Time left: ${remainingTime} seconds | Clicks: ${clickCount}`;
+        }
+
+        function displayResult() {
+            isRunning = false;
+            isFinished = true;
+            const clicksPerSecond = (clickCount / 10).toFixed(2);
+            resultDiv.textContent = `Your click speed is ${clicksPerSecond} clicks per second.`;
+        }
+
+        function resetTest() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            isFinished = false;
+            clickCount = 0;
+            remainingTime = 10;
+            statusDiv.textContent = 'Click the button to start!';
+            resultDiv.textContent = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    background: #4F1787;
+}
+
+
+
+/* making responsive */
+.mobile{display: none;}
+@media screen and (max-width:500px) {
+    *{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    .mobile{
+        display: flex;
+        height: 100vh;
+        width: 100%;
+        background: #4F1787;
+    }
+    .GAMES{
+    height: 100%;
+    width: 100%;
+    }
+    .mobileul{
+        height: 90%;
+        width: 100%;
+        position: absolute;
+        bottom: 0%;
+        display: flex;
+
+        flex-wrap: wrap;
+    }
+    .mobileul a{
+        height: 10%;
+        width: 10%;
+    };
+}
